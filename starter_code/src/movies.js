@@ -1,6 +1,4 @@
-/* eslint no-restricted-globals: 'off' */
 // Turn duration of the movies from hours to minutes 
-
 
 function turnHoursToMinutes(array) {
   return array.map(function(movie){
@@ -25,6 +23,7 @@ function turnHoursToMinutes(array) {
   });
 }
 
+
 // Get the average of all rates with 2 decimals 
 
 function ratesAverage(movies) {
@@ -39,25 +38,8 @@ function ratesAverage(movies) {
   }, 0)
 }
 
-// Get the average of Drama Movies
 
-/*function dramaMoviesRate (array){
-  var dramaMovies = array.filter(function(movie){
-    return movie.genre.indexOf('Drama') > -1;
-  })
-  var dramaAvg = dramaMovies.reduce(function(rate, movie, index, dramaMovies){
-    if (index === dramaMovies.length - 1) {
-      var a = (rate + Number(movie.rate)) / dramaMovies.length;
-      var b = Math.round(a*100);
-      return b / 100;
-    } else {
-      return rate + Number(movie.rate);
-    }
-  }, 0)
-  return dramaAvg;
-}
-dramaMoviesRate(movies);
-*/
+// Get the average of Drama Movies
 
 function dramaMoviesRate (array){
   var dramaAvg = 0;
@@ -84,10 +66,32 @@ function dramaMoviesRate (array){
 }
 dramaMoviesRate(movies);
 
+
 // Order by time duration, in growing order
 
+function orderByDuration(array) {
+  return array.sort(function(movie1, movie2){
+    if (movie1.duration === movie2.duration) {
+     return  movie1.title < movie2.title ? -1 : 1;
+    }
+    return movie1.duration - movie2.duration;
+  });
+}
+var minutedMovies = turnHoursToMinutes(movies);
+orderByDuration(minutedMovies);
 
-// How many movies did STEVEN SPIELBERG
+// Iteration 5: Steven Spielberg. The best? How many movies did STEVEN SPIELBERG
+
+function howManyMovies(array) {
+  if (array.length === 0) return undefined;
+  var stevenMovies = array.filter(function(movie){
+    return (movie.director === 'Steven Spielberg') && (movie.genre.indexOf('Drama') > -1);
+  });
+  return "Steven Spielberg directed " + stevenMovies.length + " drama movies!";
+}
+
+howManyMovies(movies);
+
 
 
 // Order by title and print the first 20 titles
